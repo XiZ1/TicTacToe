@@ -20,10 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\TicTacToe.cpp" />
+    <ClCompile Include="src\tictactoe.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="inc\TicTacToe.h" />
+    <ClInclude Include="inc\tictactoe.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitattributes" />

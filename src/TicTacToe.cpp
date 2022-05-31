@@ -4,4 +4,4 @@
 * GitHub: https://github.com/XiZ1
 */
 
-#include "TicTacToe.h"
+#include "tictactoe.h"

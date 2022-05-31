@@ -6,7 +6,7 @@
 
 #pragma once
 
-class TicTacToe
+class c_tictactoe
 {
 
 };

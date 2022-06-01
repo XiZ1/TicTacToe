@@ -19,10 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\game.cpp" />
+    <ClCompile Include="src\leaderboard.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\tictactoe.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="inc\game.h" />
+    <ClInclude Include="inc\leaderboard.h" />
     <ClInclude Include="inc\tictactoe.h" />
   </ItemGroup>
   <ItemGroup>

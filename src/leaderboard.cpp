@@ -4,12 +4,4 @@
 * GitHub: https://github.com/XiZ1
 */
 
-#include "tictactoe.h"
-
-int main()
-{
-	c_tictactoe o_tictactoe;
-	o_tictactoe.start_tictactoe();
-
-	return 0;
-}
+#include "leaderboard.h"

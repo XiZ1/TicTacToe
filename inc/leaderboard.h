@@ -4,12 +4,16 @@
 * GitHub: https://github.com/XiZ1
 */
 
-#include "tictactoe.h"
+#pragma once
 
-int main()
+class c_leaderboard
 {
-	c_tictactoe o_tictactoe;
-	o_tictactoe.start_tictactoe();
+public:
 
-	return 0;
-}
+
+
+private:
+
+
+
+};

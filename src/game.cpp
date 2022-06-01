@@ -26,6 +26,10 @@ c_game::c_game(const int round, const int win, const bool name, const bool score
 	{
 		set_round_need_to_win();
 	}
+	if(set_name_)
+	{
+		set_name();
+	}
 }
 
 
@@ -46,4 +50,10 @@ int c_game::set_round_need_to_win()
 	int how_many_rounds_need_to_win = -1;
 	cin >> how_many_rounds_need_to_win;
 	return how_many_rounds_need_to_win;
+}
+
+void c_game::set_name()
+{
+	cin >> name_player_one;
+	cin >> name_player_two;
 }

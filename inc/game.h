@@ -20,11 +20,13 @@ public:
 
 private:
 
+	string name_player_one_ = "Player_1", name_player_two_ = "Player_2";
 	int max_round_ = 0, round_need_to_win_ = 0;
 	bool set_name_ = false, save_score_ = false;
 
 	static int set_max_round();
 	static int set_round_need_to_win();
+	void set_name();
 
 };
 

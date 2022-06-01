@@ -26,17 +26,17 @@ void c_tictactoe::start_tictactoe()
 		{
 			case QUICK:
 			{
-				c_game o_quick_game;
+				c_game o_quick_game(5, 3, false, false);
 			}break;
 
 			case RANKING:
 			{
-				c_game o_ranking_game;
+				c_game o_ranking_game(9, 5, true, true);
 			}break;
 
 			case CUSTOM:
 			{
-				c_game o_custom_game;
+				c_game o_custom_game(-1, -1, true, false);
 			}break;
 
 			case LEADER:

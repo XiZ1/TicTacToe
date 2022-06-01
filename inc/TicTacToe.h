@@ -9,6 +9,7 @@
 #include <iostream>
 
 using std::cout;
+using std::cin;
 using std::string;
 
 class c_game;
@@ -18,15 +19,17 @@ class c_tictactoe
 {
 public:
 
-	friend class c_learderboard;
+	friend class c_leaderboard;
 	friend class c_game;
 
-	void start_tictactoe();
+	static void start_tictactoe();
 
 private:
 
-	void clear_screen();
-	void show_message();
-	bool whether_exit();
+	enum tictactoe_main_menu{QUICK = 1, RANKING = 2, CUSTOM = 3, LEADER = 4};
+
+	static void clear_screen();
+	static void show_message(const string&);
+	static bool whether_exit();
 
 };

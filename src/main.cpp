@@ -8,8 +8,7 @@
 
 int main()
 {
-	c_tictactoe o_tictactoe;
-	o_tictactoe.start_tictactoe();
+	c_tictactoe::start_tictactoe();
 
 	return 0;
 }

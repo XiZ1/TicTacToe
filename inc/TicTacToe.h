@@ -26,7 +26,7 @@ public:
 
 private:
 
-	enum tictactoe_main_menu{QUICK = 1, RANKING = 2, CUSTOM = 3, LEADER = 4, EXIT = 5};
+	enum tictactoe_main_menu{QUICK = 49, RANKING = 50, CUSTOM = 51, LEADER = 52, EXIT = 53};
 
 	static void clear_screen();
 	static void show_message(const string&);

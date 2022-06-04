@@ -20,26 +20,33 @@ void c_tictactoe::start_tictactoe()
 	{
 		clear_screen();
 		show_message("TicTacToe GAME!\n\n 1. Quick match.\n 2. Ranking match.\n 3. Custom match.\n 4. Leaderboard.\n 5. Exit.\n\n");
-		int choose = 0;
-		cin >> choose;
-		switch (choose)
+		switch (_getch())
 		{
 			case QUICK:
 			{
 				c_game o_quick_game(5, 3, false, false);
-				o_quick_game.start_game();
+				while (whether_exit())
+				{
+					o_quick_game.start_game();
+				}
 			}break;
 
 			case RANKING:
 			{
 				c_game o_ranking_game(9, 5, true, true);
-				o_ranking_game.start_game();
+				while (whether_exit())
+				{
+					o_ranking_game.start_game();
+				}
 			}break;
 
 			case CUSTOM:
 			{
 				c_game o_custom_game(-1, -1, true, false);
-				o_custom_game.start_game();
+				while (whether_exit())
+				{
+					o_custom_game.start_game();
+				}
 			}break;
 
 			case LEADER:

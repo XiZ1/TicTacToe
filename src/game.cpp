@@ -55,11 +55,28 @@ void c_game::start_game()
 			{
 				if(check_win())
 				{
-					//add point
 					break;
 				}
 			}
 		}
+		if (player_one_points_ == round_need_to_win_)
+		{
+			c_tictactoe::clear_screen();
+			c_tictactoe::show_message("WINNER IS " + name_player_one_ + "!");
+			set_match_results(name_player_one_, name_player_two_);
+			break;
+		}
+		if(player_two_points_ == round_need_to_win_)
+		{
+			c_tictactoe::clear_screen();
+			c_tictactoe::show_message("WINNER IS " + name_player_two_ + "!");
+			set_match_results(name_player_two_, name_player_one_);
+			break;
+		}
+	}
+	if (save_score_)
+	{
+		//save score
 	}
 }
 
@@ -71,6 +88,7 @@ void c_game::start_game()
 
 int c_game::set_max_round()
 {
+	c_tictactoe::show_message("Enter the maximum number of rounds.");
 	int how_many_rounds = -1;
 	cin >> how_many_rounds;
 	return how_many_rounds;
@@ -78,6 +96,7 @@ int c_game::set_max_round()
 
 int c_game::set_round_need_to_win()
 {
+	c_tictactoe::show_message("Enter the number of rounds needed to win.");
 	int how_many_rounds_need_to_win = -1;
 	cin >> how_many_rounds_need_to_win;
 	return how_many_rounds_need_to_win;
@@ -85,7 +104,9 @@ int c_game::set_round_need_to_win()
 
 void c_game::set_name()
 {
+	c_tictactoe::show_message("Enter the first player's name.");
 	cin >> name_player_one_;
+	c_tictactoe::show_message("Enter the second player's name.");
 	cin >> name_player_two_;
 }
 
@@ -101,61 +122,176 @@ void c_game::show_board() const
 
 void c_game::set_char(const char player_character)
 {
-	switch (_getch())
+	bool end_loop = true;
+	do
 	{
-		case '1':
+		switch (_getch())
 		{
-			tab_board_[0][0] = player_character;
-		}break;
+			case '1':
+			{
+				if (check_field_is_empty('6', tab_board_[0][0]))
+				{
+					tab_board_[0][0] = player_character;
+					end_loop = false;
+				}
+			}break;
 
-		case '2':
-		{
-			tab_board_[0][1] = player_character;
-		}break;
+			case '2':
+			{
+				if (check_field_is_empty('6', tab_board_[0][1]))
+				{
+					tab_board_[0][1] = player_character;
+					end_loop = false;
+				}
+			}break;
 
-		case '3':
-		{
-			tab_board_[0][2] = player_character;
-		}break;
+			case '3':
+			{
+				if (check_field_is_empty('6', tab_board_[0][2]))
+				{
+					tab_board_[0][2] = player_character;
+					end_loop = false;
+				}
+			}break;
 
-		case '4':
-		{
-			tab_board_[1][0] = player_character;
-		}break;
+			case '4':
+			{
+				if (check_field_is_empty('6', tab_board_[1][0]))
+				{
+					tab_board_[1][0] = player_character;
+					end_loop = false;
+				}
+			}break;
 
-		case '5':
-		{
-			tab_board_[1][1] = player_character;
-		}break;
+			case '5':
+			{
+				if (check_field_is_empty('6', tab_board_[1][1]))
+				{
+					tab_board_[1][1] = player_character;
+					end_loop = false;
+				}
+			}break;
 
-		case '6':
-		{
-			tab_board_[1][2] = player_character;
-		}break;
+			case '6':
+			{
+				if (check_field_is_empty('6', tab_board_[1][2]))
+				{
+					tab_board_[1][2] = player_character;
+					end_loop = false;
+				}
+					
+			}break;
 
-		case '7':
-		{
-			tab_board_[2][0] = player_character;
-		}break;
+			case '7':
+			{
+				if (check_field_is_empty('7', tab_board_[2][0]))
+				{
+					tab_board_[2][0] = player_character;
+					end_loop = false;
+				}
+					
+			}break;
 
-		case '8':
-		{
-			tab_board_[2][1] = player_character;
-		}break;
+			case '8':
+			{
+				if (check_field_is_empty('8', tab_board_[2][1]))
+				{
+					tab_board_[2][1] = player_character;
+					end_loop = false;
+				}
+					
+			}break;
 
-		case '9':
-		{
-			tab_board_[2][2] = player_character;
-		}break;
+			case '9':
+			{
+				if (check_field_is_empty('9', tab_board_[2][2]))
+				{
+					tab_board_[2][2] = player_character;
+					end_loop = false;
+				}
+					
+			}break;
 
-		default:
-		{
-			NULL;
-		}break;
+			default:
+			{
+				NULL;
+			}break;
+		}
+	}while (end_loop);
+}
+
+bool c_game::check_field_is_empty(const char field_number, const char& field_of_board)
+{
+	if (field_number == field_of_board)
+	{
+		return true;
 	}
+	return false;
 }
 
 bool c_game::check_win()
 {
-	return true;
+	if (check_x(player_one_character_) || check_y(player_one_character_) || check_diagonal(player_one_character_))
+	{
+		c_tictactoe::clear_screen();
+		c_tictactoe::show_message(name_player_one_ + " WIN THIS ROUND!");
+		add_point(player_one_points_);
+		return true;
+	}
+	if (check_x(player_two_character_) || check_y(player_two_character_) || check_diagonal( player_two_character_))
+	{
+		c_tictactoe::clear_screen();
+		c_tictactoe::show_message(name_player_two_ + " WIN THIS ROUND!");
+		add_point(player_two_points_);
+		return true;
+	}
+	return false;
+}
+
+bool c_game::check_x(const char& player_character) const
+{
+	for (auto i = 0; i < 3; i++)  // NOLINT(modernize-loop-convert)
+	{
+		if((tab_board_[i][0] == player_character) && (tab_board_[i][1] == player_character) && (tab_board_[i][2] == player_character))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+bool c_game::check_y(const char& player_character) const
+{
+	for (auto i = 0; i < 3; i++)
+	{
+		if ((tab_board_[0][i] == player_character) && (tab_board_[1][i] == player_character) && (tab_board_[2][i] == player_character))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+bool c_game::check_diagonal(const char& player_character) const //TODO: IMPROVE CHECKING ALGORYTHM!
+{
+	if ((tab_board_[0][0] == player_character) && (tab_board_[1][1] == player_character) && (tab_board_[2][2] == player_character))
+	{
+		return true;
+	}
+	if ((tab_board_[0][2] == player_character) && (tab_board_[1][1] == player_character) && (tab_board_[2][0] == player_character))
+	{
+		return true;
+	}
+	return false;
+}
+
+void c_game::add_point(int& player_point)
+{
+	player_point++;
+}
+
+void c_game::set_match_results(const string& winner, const string& loser)
+{
+	winner_ = winner;
+	loser_ = loser;
 }

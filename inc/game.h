@@ -4,6 +4,8 @@
 * GitHub: https://github.com/XiZ1
 */
 
+// ReSharper disable CppConstParameterInDeclaration
+// ReSharper disable CppClangTidyModernizeUseNodiscard
 #pragma once
 
 #include "tictactoe.h"

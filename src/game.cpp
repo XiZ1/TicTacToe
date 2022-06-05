@@ -76,7 +76,7 @@ void c_game::start_game()
 	}
 	if (save_score_)
 	{
-		//save score
+		//TODO ADD SAVE SCORE TO LEADERBOARD!
 	}
 }
 

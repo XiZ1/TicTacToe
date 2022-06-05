@@ -14,7 +14,7 @@
  */
 
 
-void c_tictactoe::start_tictactoe()
+void c_tictactoe::start_tictactoe()//TODO DEBUG CODE!
 {
 	do
 	{
@@ -51,7 +51,8 @@ void c_tictactoe::start_tictactoe()
 
 			case LEADER:
 			{
-				//c_leaderboard o_leaderboard;
+				c_leaderboard o_leaderboard;
+				o_leaderboard.show_top_10_leaderboard();
 			}break;
 
 			case EXIT:

@@ -6,11 +6,13 @@
 
 #pragma once
 
+#include "tictactoe.h"
+
 class c_leaderboard
 {
 public:
 
-
+	void show_top_10_leaderboard();
 
 private:
 

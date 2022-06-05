@@ -5,3 +5,22 @@
 */
 
 #include "leaderboard.h"
+
+
+/*
+ * PUBLIC:
+ */
+
+
+void c_leaderboard::show_top_10_leaderboard()
+{
+	cout << "TOP 10 LEADERBOARD!\n";
+}
+
+
+/*
+ * PRIVATE:
+ */
+
+
+

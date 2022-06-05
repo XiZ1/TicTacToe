@@ -38,10 +38,12 @@ void c_game::start_game()
 {
 	for (auto i = 0; i < max_round_; i++)
 	{
+		clear_board();
 		for (auto j = 0; j < 9; j++)
 		{
 			c_tictactoe::clear_screen();
-			c_tictactoe::show_message(name_player_one_ + ": " + std::to_string(player_one_points_) + "		VS		" + std::to_string(player_two_points_) + " :" + name_player_two_);
+			c_tictactoe::show_message("ROUND: " + std::to_string(i + 1) + "\n\n");
+			c_tictactoe::show_message(name_player_one_ + ": " + std::to_string(player_one_points_) + "	VS	" + std::to_string(player_two_points_) + " :" + name_player_two_ + "\n\n");
 			show_board();
 			if (j % 2 == 0)
 			{
@@ -51,7 +53,7 @@ void c_game::start_game()
 			{
 				set_char(player_two_character_);
 			}
-			if (j == 4)
+			if (j >= 4)
 			{
 				if(check_win())
 				{
@@ -73,6 +75,7 @@ void c_game::start_game()
 			set_match_results(name_player_two_, name_player_one_);
 			break;
 		}
+		// TODO rozwiazanie kwesti remisu w przypadku meczy nie rozstrzygnietego nastepuje remis liczony do tablicy wynikow
 	}
 	if (save_score_)
 	{
@@ -112,7 +115,6 @@ void c_game::set_name()
 
 void c_game::show_board() const
 {
-	c_tictactoe::clear_screen();
 	cout << tab_board_[0][0] << " | " << tab_board_[0][1] << " | " << tab_board_[0][2] << '\n';
 	cout << "---------\n";
 	cout << tab_board_[1][0] << " | " << tab_board_[1][1] << " | " << tab_board_[1][2] << '\n';
@@ -129,7 +131,7 @@ void c_game::set_char(const char player_character)
 		{
 			case '1':
 			{
-				if (check_field_is_empty('6', tab_board_[0][0]))
+				if (check_field_is_empty('1', tab_board_[0][0]))
 				{
 					tab_board_[0][0] = player_character;
 					end_loop = false;
@@ -138,7 +140,7 @@ void c_game::set_char(const char player_character)
 
 			case '2':
 			{
-				if (check_field_is_empty('6', tab_board_[0][1]))
+				if (check_field_is_empty('2', tab_board_[0][1]))
 				{
 					tab_board_[0][1] = player_character;
 					end_loop = false;
@@ -147,7 +149,7 @@ void c_game::set_char(const char player_character)
 
 			case '3':
 			{
-				if (check_field_is_empty('6', tab_board_[0][2]))
+				if (check_field_is_empty('3', tab_board_[0][2]))
 				{
 					tab_board_[0][2] = player_character;
 					end_loop = false;
@@ -156,7 +158,7 @@ void c_game::set_char(const char player_character)
 
 			case '4':
 			{
-				if (check_field_is_empty('6', tab_board_[1][0]))
+				if (check_field_is_empty('4', tab_board_[1][0]))
 				{
 					tab_board_[1][0] = player_character;
 					end_loop = false;
@@ -165,7 +167,7 @@ void c_game::set_char(const char player_character)
 
 			case '5':
 			{
-				if (check_field_is_empty('6', tab_board_[1][1]))
+				if (check_field_is_empty('5', tab_board_[1][1]))
 				{
 					tab_board_[1][1] = player_character;
 					end_loop = false;
@@ -288,6 +290,19 @@ bool c_game::check_diagonal(const char& player_character) const //TODO: IMPROVE 
 void c_game::add_point(int& player_point)
 {
 	player_point++;
+}
+
+void c_game::clear_board()
+{
+	char temp_char = 49;
+	for (auto i = 0; i < 3; i++)  // NOLINT(modernize-loop-convert)
+	{
+		for(auto j = 0; j < 3; j++)
+		{
+			tab_board_[i][j] = temp_char;
+			temp_char++;
+		}
+	}
 }
 
 void c_game::set_match_results(const string& winner, const string& loser)

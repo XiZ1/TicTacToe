@@ -25,7 +25,7 @@ void c_tictactoe::start_tictactoe()//TODO DEBUG CODE!
 			case QUICK:
 			{
 				c_game o_quick_game(5, 3, false, false);
-				while (whether_exit())
+				while (!whether_exit())
 				{
 					o_quick_game.start_game();
 				}
@@ -34,7 +34,7 @@ void c_tictactoe::start_tictactoe()//TODO DEBUG CODE!
 			case RANKING:
 			{
 				c_game o_ranking_game(9, 5, true, true);
-				while (whether_exit())
+				while (!whether_exit())
 				{
 					o_ranking_game.start_game();
 				}
@@ -43,7 +43,7 @@ void c_tictactoe::start_tictactoe()//TODO DEBUG CODE!
 			case CUSTOM:
 			{
 				c_game o_custom_game(-1, -1, true, false);
-				while (whether_exit())
+				while (!whether_exit())
 				{
 					o_custom_game.start_game();
 				}

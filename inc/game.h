@@ -45,6 +45,7 @@ private:
 	bool check_y(const char& player_character) const;
 	bool check_diagonal(const char& player_character) const;
 	static void add_point(int& player_point);
+	void clear_board();
 	void set_match_results(const string& winner, const string& loser);
 };
 

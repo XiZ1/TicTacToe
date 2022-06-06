@@ -9,12 +9,13 @@
 #include "leaderboard.h"
 #include <conio.h>
 
+
 /*
  * PUBLIC:
  */
 
 
-void c_tictactoe::start_tictactoe()//TODO DEBUG CODE!
+void c_tictactoe::start_tictactoe()
 {
 	do
 	{

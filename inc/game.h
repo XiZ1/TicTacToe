@@ -32,9 +32,10 @@ private:
 	char tab_board_[x_board_size][y_board_size]{{'1', '2', '3'},{'4', '5', '6'},{'7', '8', '9'}};
 
 	string winner_, loser_;
+	bool remiss_match_ = false;
 
 	static int set_max_round();
-	static int set_round_need_to_win();
+	static int set_round_need_to_win(const int& maximum_round);
 	void set_name();
 
 	void show_board() const;
@@ -48,4 +49,3 @@ private:
 	void clear_board();
 	void set_match_results(const string& winner, const string& loser);
 };
-

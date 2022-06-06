@@ -5,6 +5,7 @@
 */
 
 #include "game.h"
+#include "leaderboard.h"
 #include <string>
 #include <conio.h>
 
@@ -26,7 +27,7 @@ c_game::c_game(const int round, const int win, const bool name, const bool score
 	}
 	if (round_need_to_win_ == -1)
 	{
-		round_need_to_win_ = set_round_need_to_win();
+		round_need_to_win_ = set_round_need_to_win(max_round_);
 	}
 	if(set_name_)
 	{
@@ -42,7 +43,7 @@ void c_game::start_game()
 		for (auto j = 0; j < 9; j++)
 		{
 			c_tictactoe::clear_screen();
-			c_tictactoe::show_message("ROUND: " + std::to_string(i + 1) + "\n\n");
+			c_tictactoe::show_message("\t      ROUND: " + std::to_string(i + 1) + "\n\n");
 			c_tictactoe::show_message(name_player_one_ + ": " + std::to_string(player_one_points_) + "	VS	" + std::to_string(player_two_points_) + " :" + name_player_two_ + "\n\n");
 			show_board();
 			if (j % 2 == 0)
@@ -60,6 +61,12 @@ void c_game::start_game()
 					break;
 				}
 			}
+			if (j == 8)
+			{
+				c_tictactoe::clear_screen();
+				c_tictactoe::show_message("REMISS!\n");
+				break;
+			}
 		}
 		if (player_one_points_ == round_need_to_win_)
 		{
@@ -75,11 +82,37 @@ void c_game::start_game()
 			set_match_results(name_player_two_, name_player_one_);
 			break;
 		}
-		// TODO rozwiazanie kwesti remisu w przypadku meczy nie rozstrzygnietego nastepuje remis liczony do tablicy wynikow
+		if(i == (max_round_ - 1))
+		{
+			if (player_one_points_ == player_two_points_)
+			{
+				c_tictactoe::clear_screen();
+				c_tictactoe::show_message("REMISS!");
+				remiss_match_ = true;
+				set_match_results(name_player_one_, name_player_two_);
+			}
+			if( player_one_points_ > player_two_points_)
+			{
+				c_tictactoe::clear_screen();
+				c_tictactoe::show_message("WINNER IS " + name_player_one_ + "!");
+				set_match_results(name_player_one_, name_player_two_);
+			}
+			if (player_two_points_ > player_one_points_)
+			{
+				c_tictactoe::clear_screen();
+				c_tictactoe::show_message("WINNER IS " + name_player_two_ + "!");
+				set_match_results(name_player_two_, name_player_one_);
+			}
+		}
 	}
 	if (save_score_)
 	{
-		//TODO ADD SAVE SCORE TO LEADERBOARD!
+		c_leaderboard o_leaderboard;
+		if(remiss_match_)
+		{
+			o_leaderboard.save_remiss_match_results(winner_, loser_);
+		}
+		o_leaderboard.save_match_results(winner_, loser_);
 	}
 }
 
@@ -91,18 +124,32 @@ void c_game::start_game()
 
 int c_game::set_max_round()
 {
-	c_tictactoe::show_message("Enter the maximum number of rounds.");
 	int how_many_rounds = -1;
-	cin >> how_many_rounds;
-	return how_many_rounds;
+	while (true)
+	{
+		c_tictactoe::clear_screen();
+		c_tictactoe::show_message("Enter the maximum number of rounds.");
+		cin >> how_many_rounds;
+		if(how_many_rounds > 0)
+		{
+			return how_many_rounds;
+		}
+	}
 }
 
-int c_game::set_round_need_to_win()
+int c_game::set_round_need_to_win(const int& maximum_round)
 {
-	c_tictactoe::show_message("Enter the number of rounds needed to win.");
 	int how_many_rounds_need_to_win = -1;
-	cin >> how_many_rounds_need_to_win;
-	return how_many_rounds_need_to_win;
+	while (true)
+	{
+		c_tictactoe::clear_screen();
+		c_tictactoe::show_message("Enter the number of rounds needed to win.");
+		cin >> how_many_rounds_need_to_win;
+		if ((how_many_rounds_need_to_win > 0) && (how_many_rounds_need_to_win < maximum_round))
+		{
+			return how_many_rounds_need_to_win;
+		}
+	}
 }
 
 void c_game::set_name()
@@ -115,11 +162,11 @@ void c_game::set_name()
 
 void c_game::show_board() const
 {
-	cout << tab_board_[0][0] << " | " << tab_board_[0][1] << " | " << tab_board_[0][2] << '\n';
-	cout << "---------\n";
-	cout << tab_board_[1][0] << " | " << tab_board_[1][1] << " | " << tab_board_[1][2] << '\n';
-	cout << "---------\n";
-	cout << tab_board_[2][0] << " | " << tab_board_[2][1] << " | " << tab_board_[2][2] << '\n';
+	cout << "\t     " << tab_board_[0][0] << " | " << tab_board_[0][1] << " | " << tab_board_[0][2] << '\n';
+	cout << "\t    -----------\n";
+	cout << "\t     " << tab_board_[1][0] << " | " << tab_board_[1][1] << " | " << tab_board_[1][2] << '\n';
+	cout << "\t    -----------\n";
+	cout << "\t     " << tab_board_[2][0] << " | " << tab_board_[2][1] << " | " << tab_board_[2][2] << '\n';
 }
 
 void c_game::set_char(const char player_character)
@@ -274,15 +321,14 @@ bool c_game::check_y(const char& player_character) const
 	return false;
 }
 
-bool c_game::check_diagonal(const char& player_character) const //TODO: IMPROVE CHECKING ALGORYTHM!
+bool c_game::check_diagonal(const char& player_character) const
 {
-	if ((tab_board_[0][0] == player_character) && (tab_board_[1][1] == player_character) && (tab_board_[2][2] == player_character))
+	for (auto i = 0; i < 3; i += 2)
 	{
-		return true;
-	}
-	if ((tab_board_[0][2] == player_character) && (tab_board_[1][1] == player_character) && (tab_board_[2][0] == player_character))
-	{
-		return true;
+		if ((tab_board_[0][0 + i] == player_character) && (tab_board_[1][1] == player_character) && (tab_board_[2][2 - i] == player_character))
+		{
+			return true;
+		}
 	}
 	return false;
 }

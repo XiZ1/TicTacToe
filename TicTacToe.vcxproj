@@ -35,6 +35,9 @@
     <None Include="README.md" />
     <None Include="REQUIREMENTS.md" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="date_base\leaderboard.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

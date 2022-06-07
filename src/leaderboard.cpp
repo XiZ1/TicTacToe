@@ -12,7 +12,7 @@
  */
 
 
-void c_leaderboard::show_top_10_leaderboard()
+void c_leaderboard::show_leaderboard()
 {
 	cout << "TOP 10 LEADERBOARD!\n";
 }

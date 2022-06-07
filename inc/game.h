@@ -8,7 +8,7 @@
 // ReSharper disable CppClangTidyModernizeUseNodiscard
 #pragma once
 
-#include "tictactoe.h"
+#include "TicTacToe.h"
 
 class c_game
 {

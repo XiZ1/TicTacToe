@@ -4,7 +4,7 @@
 * GitHub: https://github.com/XiZ1
 */
 
-#include "tictactoe.h"
+#include "TicTacToe.h"
 #include "game.h"
 #include "leaderboard.h"
 #include <conio.h>
@@ -53,7 +53,7 @@ void c_tictactoe::start_tictactoe()
 			case LEADER:
 			{
 				c_leaderboard o_leaderboard;
-				o_leaderboard.show_top_10_leaderboard();
+				o_leaderboard.show_leaderboard();
 			}break;
 
 			case EXIT:

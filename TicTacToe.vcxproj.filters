@@ -45,4 +45,7 @@
     <None Include=".gitattributes" />
     <None Include="REQUIREMENTS.md" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="date_base\leaderboard.txt" />
+  </ItemGroup>
 </Project>

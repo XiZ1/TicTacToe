@@ -140,17 +140,17 @@ void c_leaderboard::add_user(const string& user_nick_name, const int& flag)
 	}
 }
 
-double c_leaderboard::win_loose_ratio()
+double c_leaderboard::win_loose_ratio() const
 {
 	return (win_match_ + remiss_match_) / loose_match_;
 }
 
-double c_leaderboard::score()
+double c_leaderboard::score() const
 {
 	return (win_loose_ratio_ * 0.75) * (all_match_ * 0.25);
 }
 
-bool c_leaderboard::save_leaderboard()
+bool c_leaderboard::save_leaderboard() const
 {
 	std::ofstream download_leaderboard;
 	download_leaderboard.open("date_base\\leaderboard.txt");

@@ -4,6 +4,8 @@
 * GitHub: https://github.com/XiZ1
 */
 
+// ReSharper disable CppClangTidyModernizeUseNodiscard
+
 #pragma once
 
 #include "TicTacToe.h"
@@ -25,11 +27,11 @@ private:
 	enum flags { WIN, LOOSE, REMISS };
 
 	bool download_leaderboard();
-	bool is_user_exist(const string& user_nick_name);
+	bool is_user_exist(const string& user_nick_name) const;
 	void update_user_stats(const string& user_nick_name, const int& flag);
 	void add_user(const string& user_nick_name, const int& flag);
-	double win_loose_ratio();
-	double score();
-	void save_leaderboard();
+	double win_loose_ratio() const;
+	double score() const;
+	bool save_leaderboard() const;
 
 };

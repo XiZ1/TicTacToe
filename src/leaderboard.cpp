@@ -13,7 +13,7 @@
  */
 
 
-void c_leaderboard::show_leaderboard()
+void c_leaderboard::show_leaderboard()	//DONE
 {
 	if(download_leaderboard())
 	{
@@ -33,7 +33,7 @@ void c_leaderboard::show_leaderboard()
 	system("pause");
 }
 
-void c_leaderboard::save_match_results(const string& winner, const string& loser)
+void c_leaderboard::save_match_results(const string& winner, const string& loser) //REWORK 
 {
 	download_leaderboard();
 	constexpr int tab_flag[2]{ WIN, LOOSE };
@@ -52,7 +52,7 @@ void c_leaderboard::save_match_results(const string& winner, const string& loser
 	save_leaderboard();
 }
 
-void c_leaderboard::save_remiss_match_results(const string& remiss_one, const string& remiss_two)
+void c_leaderboard::save_remiss_match_results(const string& remiss_one, const string& remiss_two) //REWORK
 {
 	download_leaderboard();
 	const string tab_user_name[2] = { remiss_one, remiss_two };
@@ -76,7 +76,7 @@ void c_leaderboard::save_remiss_match_results(const string& remiss_one, const st
  */
 
 
-bool c_leaderboard::download_leaderboard()
+bool c_leaderboard::download_leaderboard()	//DONE
 {
 	std::ifstream download_leaderboard;
 	download_leaderboard.open("date_base\\leaderboard.txt");
@@ -92,11 +92,11 @@ bool c_leaderboard::download_leaderboard()
 	return true;
 }
 
-bool c_leaderboard::is_user_exist(const string& user_nick_name)
+bool c_leaderboard::is_user_exist(const string& user_nick_name) const	//DONE
 {
-	for (auto i = 0; i < leaderboard_.size(); i++)
+	for (auto& i : leaderboard_)
 	{
-		if (leaderboard_[i].find(user_nick_name))
+		if (i.find(user_nick_name))
 		{
 			return true;
 		}
@@ -104,7 +104,7 @@ bool c_leaderboard::is_user_exist(const string& user_nick_name)
 	return false;
 }
 
-void c_leaderboard::update_user_stats(const string& user_nick_name, const int& flag)
+void c_leaderboard::update_user_stats(const string& user_nick_name, const int& flag) //REWORK
 {
 	if (flag == 0)
 	{
@@ -120,7 +120,7 @@ void c_leaderboard::update_user_stats(const string& user_nick_name, const int& f
 	}
 }
 
-void c_leaderboard::add_user(const string& user_nick_name, const int& flag)
+void c_leaderboard::add_user(const string& user_nick_name, const int& flag)	//REWORK
 {
 	string temp;
 	if (flag == 0)
@@ -140,17 +140,17 @@ void c_leaderboard::add_user(const string& user_nick_name, const int& flag)
 	}
 }
 
-double c_leaderboard::win_loose_ratio() const
+double c_leaderboard::win_loose_ratio() const	//DONE
 {
 	return (win_match_ + remiss_match_) / loose_match_;
 }
 
-double c_leaderboard::score() const
+double c_leaderboard::score() const	//DONE
 {
 	return (win_loose_ratio_ * 0.75) * (all_match_ * 0.25);
 }
 
-bool c_leaderboard::save_leaderboard() const
+bool c_leaderboard::save_leaderboard() const	//DONE
 {
 	std::ofstream download_leaderboard;
 	download_leaderboard.open("date_base\\leaderboard.txt");
@@ -158,9 +158,9 @@ bool c_leaderboard::save_leaderboard() const
 	{
 		return false;
 	}
-	for (auto i = 0; i < leaderboard_.size(); i++)
+	for (const auto& i : leaderboard_)
 	{
-		download_leaderboard << leaderboard_[i];
+		download_leaderboard << i;
 	}
 	download_leaderboard.close();
 	return true;

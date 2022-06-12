@@ -31,6 +31,7 @@ private:
 	static constexpr int y_board_size = 3;
 	char tab_board_[x_board_size][y_board_size]{{'1', '2', '3'},{'4', '5', '6'},{'7', '8', '9'}};
 
+	enum match_result_flags{WIN = 0, REMISS = 1, LOOSE = 2};
 	string winner_, loser_;
 	bool remiss_match_ = false;
 

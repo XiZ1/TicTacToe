@@ -110,9 +110,9 @@ void c_game::start_game()
 		c_leaderboard o_leaderboard;
 		if(remiss_match_)
 		{
-			o_leaderboard.save_remiss_match_results(winner_, loser_);
+			o_leaderboard.save_match_results(name_player_one_, REMISS, name_player_two_, REMISS);
 		}
-		o_leaderboard.save_match_results(winner_, loser_);
+		o_leaderboard.save_match_results(winner_, WIN, loser_, LOOSE);
 	}
 }
 

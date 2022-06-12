@@ -7,7 +7,6 @@
 #include "leaderboard.h"
 #include <fstream>
 #include <string>
-#include <sstream>
 
 using std::stringstream;
 using std::to_string;
@@ -17,7 +16,7 @@ using std::to_string;
  */
 
 
-void c_leaderboard::show_leaderboard() const
+void c_leaderboard::show_leaderboard()
 {
 	if(download_leaderboard())
 	{
@@ -37,7 +36,7 @@ void c_leaderboard::show_leaderboard() const
 	system("pause");
 }
 
-void c_leaderboard::save_match_results(const string& player_one, const int flag_player_one, const string& player_two, const int flag_player_two) const
+void c_leaderboard::save_match_results(const string& player_one, const int flag_player_one, const string& player_two, const int flag_player_two)
 {
 	if (download_leaderboard())
 	{
@@ -65,7 +64,7 @@ void c_leaderboard::save_match_results(const string& player_one, const int flag_
  */
 
 
-bool c_leaderboard::download_leaderboard() const
+bool c_leaderboard::download_leaderboard()
 {
 	std::ifstream download_leaderboard;
 	download_leaderboard.open("date_base\\leaderboard.txt");
@@ -94,7 +93,7 @@ bool c_leaderboard::is_user_exist(const string& user_nick_name)
 	return false;
 }
 
-void c_leaderboard::update_user_stats(const string& user_nick_name, const int& flag) const
+void c_leaderboard::update_user_stats(const string& user_nick_name, const int& flag)
 {
 	switch (flag)
 	{
@@ -141,7 +140,7 @@ void c_leaderboard::update_user_stats(const string& user_nick_name, const int& f
 	}
 }
 
-void c_leaderboard::add_user(const string& user_nick_name, const int& flag) const
+void c_leaderboard::add_user(const string& user_nick_name, const int& flag)
 {
 	switch (flag)
 	{
@@ -188,9 +187,9 @@ void c_leaderboard::add_user(const string& user_nick_name, const int& flag) cons
 	}
 }
 
-void c_leaderboard::cut_part_of_leaderboard(const string& player_name) const
+void c_leaderboard::cut_part_of_leaderboard(const string& player_name)
 {
-	const int player_name_length = player_name.length();
+	const auto player_name_length = player_name.length();
 	part_of_leaderboard_.erase(0, player_name_length + 4);
 	string temp_string[6];
 	int j = 0;

@@ -19,7 +19,7 @@ class c_leaderboard
 public:
 
 	void show_leaderboard();
-	void save_match_results(const string& player_one, const int flag_player_one, const string& player_two, const int flag_player_two);
+	void save_match_results(const string& player_one, const int& flag_player_one, const string& player_two, const int& flag_player_two);
 
 private:
 
@@ -39,7 +39,7 @@ private:
 	void update_user_stats(const string& user_nick_name, const int& flag);
 	void add_user_stats(const string& user_nick_name, const int& flag);
 	void get_user_statistic(const string& player_name);
-	void create_new_user_stats(const int all, const int win, const int remiss, const int loose);
+	void create_new_user_stats(const int& all, const int& win, const int& remiss, const int& loose);
 	void create_field_of_leaderboard(const string& user_nick_name);
 	void win_loose_ratio();
 	void score();
@@ -48,7 +48,7 @@ private:
 
 };
 
-inline void c_leaderboard::create_new_user_stats(const int all, const int win, const int remiss, const int loose)
+inline void c_leaderboard::create_new_user_stats(const int& all, const int& win, const int& remiss, const int& loose)
 {
 	all_match_ = all;
 	win_match_ = win;

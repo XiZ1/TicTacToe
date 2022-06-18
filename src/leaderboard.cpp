@@ -33,7 +33,7 @@ void c_leaderboard::show_leaderboard()
 	system("pause");
 }
 
-void c_leaderboard::save_match_results(const string& player_one, const int flag_player_one, const string& player_two, const int flag_player_two)
+void c_leaderboard::save_match_results(const string& player_one, const int& flag_player_one, const string& player_two, const int& flag_player_two)
 {
 	const string tab_user_name[2] = { player_one, player_two };
 	const int tab_flags[2] = { flag_player_one, flag_player_two };

@@ -176,7 +176,7 @@ void c_game::set_char(const char player_character)
 	{
 		switch (_getch())
 		{
-			case '1':
+		case '1':
 			{
 				if (check_field_is_empty('1', tab_board_[0][0]))
 				{
@@ -184,8 +184,7 @@ void c_game::set_char(const char player_character)
 					end_loop = false;
 				}
 			}break;
-
-			case '2':
+		case '2':
 			{
 				if (check_field_is_empty('2', tab_board_[0][1]))
 				{
@@ -193,8 +192,7 @@ void c_game::set_char(const char player_character)
 					end_loop = false;
 				}
 			}break;
-
-			case '3':
+		case '3':
 			{
 				if (check_field_is_empty('3', tab_board_[0][2]))
 				{
@@ -202,8 +200,7 @@ void c_game::set_char(const char player_character)
 					end_loop = false;
 				}
 			}break;
-
-			case '4':
+		case '4':
 			{
 				if (check_field_is_empty('4', tab_board_[1][0]))
 				{
@@ -211,8 +208,7 @@ void c_game::set_char(const char player_character)
 					end_loop = false;
 				}
 			}break;
-
-			case '5':
+		case '5':
 			{
 				if (check_field_is_empty('5', tab_board_[1][1]))
 				{
@@ -220,8 +216,7 @@ void c_game::set_char(const char player_character)
 					end_loop = false;
 				}
 			}break;
-
-			case '6':
+		case '6':
 			{
 				if (check_field_is_empty('6', tab_board_[1][2]))
 				{
@@ -230,8 +225,7 @@ void c_game::set_char(const char player_character)
 				}
 					
 			}break;
-
-			case '7':
+		case '7':
 			{
 				if (check_field_is_empty('7', tab_board_[2][0]))
 				{
@@ -240,8 +234,7 @@ void c_game::set_char(const char player_character)
 				}
 					
 			}break;
-
-			case '8':
+		case '8':
 			{
 				if (check_field_is_empty('8', tab_board_[2][1]))
 				{
@@ -250,8 +243,7 @@ void c_game::set_char(const char player_character)
 				}
 					
 			}break;
-
-			case '9':
+		case '9':
 			{
 				if (check_field_is_empty('9', tab_board_[2][2]))
 				{
@@ -260,8 +252,7 @@ void c_game::set_char(const char player_character)
 				}
 					
 			}break;
-
-			default:
+		default:
 			{
 				NULL;
 			}break;

@@ -23,7 +23,7 @@ void c_tictactoe::start_tictactoe()
 		show_message("TicTacToe GAME!\n\n 1. Quick match.\n 2. Ranking match.\n 3. Custom match.\n 4. Leaderboard.\n 5. Exit.\n\n");
 		switch (_getch())
 		{
-			case QUICK:
+		case QUICK:
 			{
 				c_game o_quick_game(5, 3, false, false);
 				while (!whether_exit())
@@ -31,8 +31,7 @@ void c_tictactoe::start_tictactoe()
 					o_quick_game.start_game();
 				}
 			}break;
-
-			case RANKING:
+		case RANKING:
 			{
 				c_game o_ranking_game(9, 5, true, true);
 				while (!whether_exit())
@@ -40,8 +39,7 @@ void c_tictactoe::start_tictactoe()
 					o_ranking_game.start_game();
 				}
 			}break;
-
-			case CUSTOM:
+		case CUSTOM:
 			{
 				c_game o_custom_game(-1, -1, true, false);
 				while (!whether_exit())
@@ -49,19 +47,16 @@ void c_tictactoe::start_tictactoe()
 					o_custom_game.start_game();
 				}
 			}break;
-
-			case LEADER:
+		case LEADER:
 			{
 				c_leaderboard o_leaderboard;
 				o_leaderboard.show_leaderboard();
 			}break;
-
-			case EXIT:
+		case EXIT:
 			{
 				_exit(0);
 			}
-
-			default:
+		default:
 			{
 				NULL;
 			}break;

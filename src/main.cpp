@@ -4,7 +4,7 @@
 * GitHub: https://github.com/XiZ1
 */
 
-#include "tictactoe.h"
+#include "TicTacToe.h"
 
 int main()
 {

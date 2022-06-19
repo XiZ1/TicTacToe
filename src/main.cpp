@@ -9,6 +9,5 @@
 int main()
 {
 	c_tictactoe::start_tictactoe();
-
 	return 0;
 }

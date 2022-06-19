@@ -81,7 +81,7 @@ void c_leaderboard::upload_leaderboard() const
 	download_leaderboard.open("date_base\\leaderboard.txt");
 	for (const auto& i : leaderboard_)
 	{
-		download_leaderboard << i;
+		download_leaderboard << i << '\n';
 	}
 	download_leaderboard.close();
 }
@@ -90,7 +90,7 @@ bool c_leaderboard::is_user_exist(const string& user_nick_name)
 {
 	for (size_t i = 0; i < leaderboard_.size(); i++)
 	{
-		if (leaderboard_[i].find(user_nick_name))
+		if (leaderboard_[i].find(user_nick_name) != string::npos)
 		{
 			field_number_ = static_cast<int>(i);
 			return true;
@@ -175,24 +175,27 @@ void c_leaderboard::add_user_stats(const string& user_nick_name, const int& flag
 	}
 }
 
-void c_leaderboard::get_user_statistic(const string& player_name) //REWORK
+void c_leaderboard::get_user_statistic(const string& player_name) //todo refactoring
 {
 	field_of_leaderboard_ = leaderboard_[field_number_];
 	const auto player_name_length = player_name.length();
-	field_of_leaderboard_.erase(0, player_name_length + 4);
-	string temp_string[6];
+	field_of_leaderboard_.erase(0, player_name_length + 1);
+	string temp_string[4];
 	int j = 0;
 
-	for (size_t i = 0; i < field_of_leaderboard_.size(); i++)
+	for (const auto& i : field_of_leaderboard_)
 	{
-		if (std::isdigit(field_of_leaderboard_[i]))
+		if (std::isdigit(i))
 		{
-			temp_string[j] += field_of_leaderboard_[i];
+			temp_string[j] += i;
 		}
 		else
 		{
-			field_of_leaderboard_.erase(i, i + 4);
 			j++;
+		}
+		if (j == 4)
+		{
+			break;
 		}
 	}
 	for (auto i = 0; i < 4; i++)
@@ -201,19 +204,19 @@ void c_leaderboard::get_user_statistic(const string& player_name) //REWORK
 		{
 		case 0:
 			{
-				all_match_ = std::stod(temp_string[i]);
+				all_match_ = std::stoi(temp_string[i]);
 			}break;
 		case 1:
 			{
-				win_match_ = std::stod(temp_string[i]);
+				win_match_ = std::stoi(temp_string[i]);
 			}break;
 		case 2:
 			{
-				remiss_match_ = std::stod(temp_string[i]);
+				remiss_match_ = std::stoi(temp_string[i]);
 			}break;
 		case 3:
 			{
-				loose_match_ = std::stod(temp_string[i]);
+				loose_match_ = std::stoi(temp_string[i]);
 			}break;
 		default:
 			{
@@ -228,9 +231,9 @@ void c_leaderboard::get_score()
 	for (const auto& i : leaderboard_)
 	{
 		field_of_leaderboard_ = i;
-		const size_t found = field_of_leaderboard_.find_last_of(' ');
-		field_of_leaderboard_.erase(0, found + 4);
-		vector_score_.push_back(std::stod(field_of_leaderboard_));
+		const size_t found = field_of_leaderboard_.find_last_of('\t');
+		field_of_leaderboard_.erase(0, found + 1);
+		vector_score_.push_back(std::stoi(field_of_leaderboard_));
 	}
 }
 
@@ -241,7 +244,7 @@ void c_leaderboard::sorting_leaderboard()
 	{
 		for (size_t j = 0; j < vector_score_.size() - 1; j++)
 		{
-			if (vector_score_[j] > vector_score_[j + 1])
+			if (vector_score_[j] < vector_score_[j + 1])
 			{
 				std::swap(vector_score_[j], vector_score_[j + 1]);
 				std::swap(leaderboard_[j], leaderboard_[j + 1]);

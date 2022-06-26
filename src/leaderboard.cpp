@@ -18,7 +18,7 @@ void c_leaderboard::show_leaderboard()
 	if(download_leaderboard())
 	{
 		c_tictactoe::clear_screen();
-		c_tictactoe::show_message("\t\tLEADERBOARD!\n\n\n");
+		c_tictactoe::show_message("\t\t\t\tLEADERBOARD!\n\n\n");
 		c_tictactoe::show_message("NICK_NAME  ALL_MATCH  WIN_MATCH  REMISS_MATCH  LOOSE_MATCH  WIN_LOOSE_RATIO  SCORE\n");
 		for (size_t i = 0; i < leaderboard_.size(); i++)
 		{

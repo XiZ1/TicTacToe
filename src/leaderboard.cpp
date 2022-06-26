@@ -19,8 +19,10 @@ void c_leaderboard::show_leaderboard()
 	{
 		c_tictactoe::clear_screen();
 		c_tictactoe::show_message("\t\tLEADERBOARD!\n\n\n");
+		c_tictactoe::show_message("NICK_NAME  ALL_MATCH  WIN_MATCH  REMISS_MATCH  LOOSE_MATCH  WIN_LOOSE_RATIO  SCORE\n");
 		for (size_t i = 0; i < leaderboard_.size(); i++)
 		{
+			c_tictactoe::show_message("==================================================================================\n");
 			cout << i+1 << ". " << leaderboard_[i] << '\n';
 		}
 		cout << '\n';
@@ -175,55 +177,32 @@ void c_leaderboard::add_user_stats(const string& user_nick_name, const int& flag
 	}
 }
 
-void c_leaderboard::get_user_statistic(const string& player_name) //todo refactoring
+void c_leaderboard::get_user_statistic(const string& player_name)
 {
 	field_of_leaderboard_ = leaderboard_[field_number_];
-	const auto player_name_length = player_name.length();
-	field_of_leaderboard_.erase(0, player_name_length + 1);
+	const auto player_name_length = player_name.length() + 2;
 	string temp_string[4];
 	int j = 0;
 
-	for (const auto& i : field_of_leaderboard_)
+	for (auto i = player_name_length; i < field_of_leaderboard_.size(); i++)
 	{
-		if (std::isdigit(i))
+		if (j == 4)
 		{
-			temp_string[j] += i;
+			break;
+		}
+		if (std::isdigit(field_of_leaderboard_[i]))
+		{
+			temp_string[j] += field_of_leaderboard_[i];
 		}
 		else
 		{
 			j++;
 		}
-		if (j == 4)
-		{
-			break;
-		}
 	}
-	for (auto i = 0; i < 4; i++)
-	{
-		switch (i)
-		{
-		case 0:
-			{
-				all_match_ = std::stoi(temp_string[i]);
-			}break;
-		case 1:
-			{
-				win_match_ = std::stoi(temp_string[i]);
-			}break;
-		case 2:
-			{
-				remiss_match_ = std::stoi(temp_string[i]);
-			}break;
-		case 3:
-			{
-				loose_match_ = std::stoi(temp_string[i]);
-			}break;
-		default:
-			{
-				NULL;
-			}break;
-		}
-	}
+	all_match_ = std::stoi(temp_string[0]);
+	win_match_ = std::stoi(temp_string[1]);
+	remiss_match_ = std::stoi(temp_string[2]);
+	loose_match_ = std::stoi(temp_string[3]);
 }
 
 void c_leaderboard::get_score()

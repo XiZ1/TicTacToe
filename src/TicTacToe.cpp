@@ -16,8 +16,8 @@
 
 
 void c_tictactoe::start_tictactoe()
-{
-	do
+{  // NOLINT(clang-diagnostic-missing-noreturn)
+	while(true)
 	{
 		clear_screen();
 		show_message("TicTacToe GAME!\n\n 1. Quick match.\n 2. Ranking match.\n 3. Custom match.\n 4. Leaderboard.\n 5. Exit.\n\n");
@@ -25,27 +25,27 @@ void c_tictactoe::start_tictactoe()
 		{
 		case QUICK:
 			{
-				c_game o_quick_game(5, 3, false, false);
-				while (!whether_exit())
+				c_game o_quick_match(5, 3, false, false);
+				do
 				{
-					o_quick_game.start_game();
-				}
+					o_quick_match.start_game();
+				}while (!whether_play_again());
 			}break;
 		case RANKING:
 			{
-				c_game o_ranking_game(9, 5, true, true);
-				while (!whether_exit())
+				c_game o_ranking_match(9, 5, true, true);
+				do
 				{
-					o_ranking_game.start_game();
-				}
+					o_ranking_match.start_game();
+				}while (!whether_play_again());
 			}break;
 		case CUSTOM:
 			{
-				c_game o_custom_game(-1, -1, true, false);
-				while (!whether_exit())
+				c_game o_custom_match(-1, -1, true, false);
+				do
 				{
-					o_custom_game.start_game();
-				}
+					o_custom_match.start_game();
+				}while (!whether_play_again());
 			}break;
 		case LEADER:
 			{
@@ -61,7 +61,7 @@ void c_tictactoe::start_tictactoe()
 				NULL;
 			}break;
 		}
-	}while (true);
+	}
 }
 
 
@@ -80,10 +80,10 @@ void c_tictactoe::show_message(const string& message)
 	cout << message;
 }
 
-bool c_tictactoe::whether_exit()
+bool c_tictactoe::whether_play_again()
 {
 	clear_screen();
-	show_message("Do you want exit ? Press y/n.");
+	show_message("Do you want to play again ? Press y/n.");
 	if (_getch() == 'y')
 	{
 		return true;

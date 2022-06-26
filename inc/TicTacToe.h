@@ -30,6 +30,6 @@ private:
 
 	static void clear_screen();
 	static void show_message(const string&);
-	static bool whether_exit();
+	static bool whether_play_again();
 
 };

@@ -39,14 +39,17 @@ private:
 	static int set_round_need_to_win(const int& maximum_round);
 	void set_name();
 
+	void set_default_value_for_variables();
+	void clear_board();
 	void show_board() const;
 	void set_char(const char player_character);
 	static bool check_field_is_empty(const char field_number, const char& field_of_board);
-	bool check_win();
+	bool check_win() const;
 	bool check_x(const char& player_character) const;
 	bool check_y(const char& player_character) const;
 	bool check_diagonal(const char& player_character) const;
 	static void add_point(int& player_point);
-	void clear_board();
+	bool check_who_win_match();
+	void check_who_win_without_needed_points();
 	void set_match_results(const string& winner, const string& loser);
 };

@@ -65,7 +65,7 @@ inline void c_leaderboard::win_loose_ratio()
 {
 	if(loose_match_ == 0)
 	{
-		win_loose_ratio_ = win_match_ + remiss_match_;
+		win_loose_ratio_ = static_cast<double>(win_match_ + remiss_match_);
 	}
 	win_loose_ratio_ = static_cast<double>(win_match_ + remiss_match_) / loose_match_;
 	win_loose_ratio_ = round(win_loose_ratio_ * 100.0) / 100.0;

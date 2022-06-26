@@ -35,18 +35,19 @@ c_game::c_game(const int round, const int win, const bool name, const bool score
 	}
 }
 
-void c_game::start_game()
+void c_game::start_game() 
 {
-	for (auto i = 0; i < max_round_; i++)
+	set_default_value_for_variables();
+	for (auto match = 0; match < max_round_; match++)
 	{
 		clear_board();
-		for (auto j = 0; j < 9; j++)
+		for (auto round = 0; round < 9; round++)
 		{
 			c_tictactoe::clear_screen();
-			c_tictactoe::show_message("\t      ROUND: " + std::to_string(i + 1) + "\n\n");
+			c_tictactoe::show_message("\t      MATCH: " + std::to_string(match + 1) + "\n\n");
 			c_tictactoe::show_message(name_player_one_ + ": " + std::to_string(player_one_points_) + "	VS	" + std::to_string(player_two_points_) + " :" + name_player_two_ + "\n\n");
 			show_board();
-			if (j % 2 == 0)
+			if (round % 2 == 0)
 			{
 				set_char(player_one_character_);
 			}
@@ -54,55 +55,27 @@ void c_game::start_game()
 			{
 				set_char(player_two_character_);
 			}
-			if (j >= 4)
+			if (round >= 4)
 			{
 				if(check_win())
 				{
 					break;
 				}
 			}
-			if (j == 8)
+			if (round == 8)
 			{
 				c_tictactoe::clear_screen();
 				c_tictactoe::show_message("REMISS!\n");
 				break;
 			}
 		}
-		if (player_one_points_ == round_need_to_win_)
+		if (check_who_win_match())
 		{
-			c_tictactoe::clear_screen();
-			c_tictactoe::show_message("WINNER IS " + name_player_one_ + "!");
-			set_match_results(name_player_one_, name_player_two_);
 			break;
 		}
-		if(player_two_points_ == round_need_to_win_)
+		if (match == (max_round_ - 1))
 		{
-			c_tictactoe::clear_screen();
-			c_tictactoe::show_message("WINNER IS " + name_player_two_ + "!");
-			set_match_results(name_player_two_, name_player_one_);
-			break;
-		}
-		if(i == (max_round_ - 1))
-		{
-			if (player_one_points_ == player_two_points_)
-			{
-				c_tictactoe::clear_screen();
-				c_tictactoe::show_message("REMISS!");
-				remiss_match_ = true;
-				set_match_results(name_player_one_, name_player_two_);
-			}
-			if( player_one_points_ > player_two_points_)
-			{
-				c_tictactoe::clear_screen();
-				c_tictactoe::show_message("WINNER IS " + name_player_one_ + "!");
-				set_match_results(name_player_one_, name_player_two_);
-			}
-			if (player_two_points_ > player_one_points_)
-			{
-				c_tictactoe::clear_screen();
-				c_tictactoe::show_message("WINNER IS " + name_player_two_ + "!");
-				set_match_results(name_player_two_, name_player_one_);
-			}
+			check_who_win_without_needed_points();
 		}
 	}
 	if (save_score_)
@@ -160,6 +133,28 @@ void c_game::set_name()
 	cin >> name_player_two_;
 }
 
+void c_game::set_default_value_for_variables()
+{
+	player_one_points_ = 0;
+	player_two_points_ = 0;
+	winner_ = "";
+	loser_ = "";
+	remiss_match_ = false;
+}
+
+void c_game::clear_board()
+{
+	char temp_char = 49;
+	for (auto i = 0; i < 3; i++)  // NOLINT(modernize-loop-convert)
+	{
+		for(auto j = 0; j < 3; j++)
+		{
+			tab_board_[i][j] = temp_char;
+			temp_char++;
+		}
+	}
+}
+
 void c_game::show_board() const
 {
 	cout << "\t     " << tab_board_[0][0] << " | " << tab_board_[0][1] << " | " << tab_board_[0][2] << '\n';
@@ -174,90 +169,20 @@ void c_game::set_char(const char player_character)
 	bool end_loop = true;
 	do
 	{
-		switch (_getch())
+		const char temp = static_cast<char>(_getch());
+		for (auto i = 0; i < 3; i++)  // NOLINT(modernize-loop-convert)
 		{
-		case '1':
+			for (auto j = 0; j < 3; j++)
 			{
-				if (check_field_is_empty('1', tab_board_[0][0]))
+				if (check_field_is_empty(temp, tab_board_[i][j]))
 				{
-					tab_board_[0][0] = player_character;
+					tab_board_[i][j] = player_character;
 					end_loop = false;
 				}
-			}break;
-		case '2':
-			{
-				if (check_field_is_empty('2', tab_board_[0][1]))
-				{
-					tab_board_[0][1] = player_character;
-					end_loop = false;
-				}
-			}break;
-		case '3':
-			{
-				if (check_field_is_empty('3', tab_board_[0][2]))
-				{
-					tab_board_[0][2] = player_character;
-					end_loop = false;
-				}
-			}break;
-		case '4':
-			{
-				if (check_field_is_empty('4', tab_board_[1][0]))
-				{
-					tab_board_[1][0] = player_character;
-					end_loop = false;
-				}
-			}break;
-		case '5':
-			{
-				if (check_field_is_empty('5', tab_board_[1][1]))
-				{
-					tab_board_[1][1] = player_character;
-					end_loop = false;
-				}
-			}break;
-		case '6':
-			{
-				if (check_field_is_empty('6', tab_board_[1][2]))
-				{
-					tab_board_[1][2] = player_character;
-					end_loop = false;
-				}
-					
-			}break;
-		case '7':
-			{
-				if (check_field_is_empty('7', tab_board_[2][0]))
-				{
-					tab_board_[2][0] = player_character;
-					end_loop = false;
-				}
-					
-			}break;
-		case '8':
-			{
-				if (check_field_is_empty('8', tab_board_[2][1]))
-				{
-					tab_board_[2][1] = player_character;
-					end_loop = false;
-				}
-					
-			}break;
-		case '9':
-			{
-				if (check_field_is_empty('9', tab_board_[2][2]))
-				{
-					tab_board_[2][2] = player_character;
-					end_loop = false;
-				}
-					
-			}break;
-		default:
-			{
-				NULL;
-			}break;
+			}
 		}
-	}while (end_loop);
+	}
+	while (end_loop);
 }
 
 bool c_game::check_field_is_empty(const char field_number, const char& field_of_board)
@@ -269,21 +194,20 @@ bool c_game::check_field_is_empty(const char field_number, const char& field_of_
 	return false;
 }
 
-bool c_game::check_win()
+bool c_game::check_win() const
 {
-	if (check_x(player_one_character_) || check_y(player_one_character_) || check_diagonal(player_one_character_))
+	const char tab_character[2]{ player_one_character_, player_two_character_ };
+	int tab_point[2]{ player_one_points_, player_two_points_ };
+	const string tab_name[2]{ name_player_one_, name_player_two_ };
+	for (auto i = 0; i < 2; i++)
 	{
-		c_tictactoe::clear_screen();
-		c_tictactoe::show_message(name_player_one_ + " WIN THIS ROUND!");
-		add_point(player_one_points_);
-		return true;
-	}
-	if (check_x(player_two_character_) || check_y(player_two_character_) || check_diagonal( player_two_character_))
-	{
-		c_tictactoe::clear_screen();
-		c_tictactoe::show_message(name_player_two_ + " WIN THIS ROUND!");
-		add_point(player_two_points_);
-		return true;
+		if ((check_x(tab_character[i])) || check_y(tab_character[i]) || check_diagonal(tab_character[i]))
+		{
+			c_tictactoe::clear_screen();
+			c_tictactoe::show_message(tab_name[i] + " WIN THIS ROUND!");
+			add_point(tab_point[i]);
+			return true;
+		}
 	}
 	return false;
 }
@@ -329,16 +253,50 @@ void c_game::add_point(int& player_point)
 	player_point++;
 }
 
-void c_game::clear_board()
+bool c_game::check_who_win_match()
 {
-	char temp_char = 49;
-	for (auto i = 0; i < 3; i++)  // NOLINT(modernize-loop-convert)
+	const int tab_player_points[2] = {player_one_points_, player_two_points_};
+	const string tab_player_names[2] = { name_player_one_, name_player_two_ };
+	for (auto i = 0; i < 2; i++)
 	{
-		for(auto j = 0; j < 3; j++)
+		if (tab_player_points[i] == round_need_to_win_)
 		{
-			tab_board_[i][j] = temp_char;
-			temp_char++;
+			c_tictactoe::clear_screen();
+			c_tictactoe::show_message("WINNER IS " + tab_player_names[i] + "!");
+			if (i == 0)
+			{
+				set_match_results(tab_player_names[i], tab_player_names[i + 1]);
+			}
+			if (i == 1)
+			{
+				set_match_results(tab_player_names[i], tab_player_names[i - 1]);
+			}
+			return true;
 		}
+	}
+	return false;
+}
+
+void c_game::check_who_win_without_needed_points()
+{
+	int tab_player_points[2] = {player_one_points_, player_two_points_};
+	string tab_player_names[2] = {name_player_one_, name_player_two_};
+	if (player_one_points_ == player_two_points_)
+	{
+		c_tictactoe::clear_screen();
+		c_tictactoe::show_message("REMISS!");
+		remiss_match_ = true;
+	}
+	for (auto i = 0; i < 2; i++)
+	{
+		if (tab_player_points[0] > tab_player_points[1])
+		{
+			c_tictactoe::clear_screen();
+			c_tictactoe::show_message("WINNER IS " + tab_player_names[0] + "!");
+			set_match_results(tab_player_names[0], tab_player_names[1]);
+		}
+		std::swap(tab_player_points[0], tab_player_points[1]);
+		std::swap(tab_player_names[0], tab_player_names[1]);
 	}
 }
 

@@ -8,6 +8,8 @@
 
 int main()
 {
+	//todo poprawic wyswietlanie
+	//todo sprawdzic wycieki pamieci np tymczasowe zmienne zrobic za pomoca new/delete
 	c_tictactoe::start_tictactoe();
 	return 0;
 }

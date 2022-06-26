@@ -29,7 +29,7 @@ void c_tictactoe::start_tictactoe()
 				do
 				{
 					o_quick_match.start_game();
-				}while (!whether_play_again());
+				}while (whether_play_again());
 			}break;
 		case RANKING:
 			{
@@ -37,7 +37,7 @@ void c_tictactoe::start_tictactoe()
 				do
 				{
 					o_ranking_match.start_game();
-				}while (!whether_play_again());
+				}while (whether_play_again());
 			}break;
 		case CUSTOM:
 			{
@@ -45,7 +45,7 @@ void c_tictactoe::start_tictactoe()
 				do
 				{
 					o_custom_match.start_game();
-				}while (!whether_play_again());
+				}while (whether_play_again());
 			}break;
 		case LEADER:
 			{

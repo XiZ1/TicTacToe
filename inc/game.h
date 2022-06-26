@@ -44,7 +44,7 @@ private:
 	void show_board() const;
 	void set_char(const char player_character);
 	static bool check_field_is_empty(const char field_number, const char& field_of_board);
-	bool check_win() const;
+	bool check_win();
 	bool check_x(const char& player_character) const;
 	bool check_y(const char& player_character) const;
 	bool check_diagonal(const char& player_character) const;

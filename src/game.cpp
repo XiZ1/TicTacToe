@@ -65,7 +65,8 @@ void c_game::start_game()
 			if (round == 8)
 			{
 				c_tictactoe::clear_screen();
-				c_tictactoe::show_message("REMISS!\n");
+				c_tictactoe::show_message("REMISS MATCH!\n\n");
+				system("pause");
 				break;
 			}
 		}
@@ -194,18 +195,21 @@ bool c_game::check_field_is_empty(const char field_number, const char& field_of_
 	return false;
 }
 
-bool c_game::check_win() const
+bool c_game::check_win() // TODO task 2
 {
 	const char tab_character[2]{ player_one_character_, player_two_character_ };
-	int tab_point[2]{ player_one_points_, player_two_points_ };
+	int tab_point[2] = { player_one_points_, player_two_points_ };
 	const string tab_name[2]{ name_player_one_, name_player_two_ };
 	for (auto i = 0; i < 2; i++)
 	{
 		if ((check_x(tab_character[i])) || check_y(tab_character[i]) || check_diagonal(tab_character[i]))
 		{
 			c_tictactoe::clear_screen();
-			c_tictactoe::show_message(tab_name[i] + " WIN THIS ROUND!");
+			c_tictactoe::show_message(tab_name[i] + " WIN THIS ROUND!\n\n");
 			add_point(tab_point[i]);
+			player_one_points_ = tab_point[0];
+			player_two_points_ = tab_point[1];
+			system("pause");
 			return true;
 		}
 	}
@@ -262,7 +266,7 @@ bool c_game::check_who_win_match()
 		if (tab_player_points[i] == round_need_to_win_)
 		{
 			c_tictactoe::clear_screen();
-			c_tictactoe::show_message("WINNER IS " + tab_player_names[i] + "!");
+			c_tictactoe::show_message("WINNER IS " + tab_player_names[i] + "!\n\n");
 			if (i == 0)
 			{
 				set_match_results(tab_player_names[i], tab_player_names[i + 1]);
@@ -271,6 +275,7 @@ bool c_game::check_who_win_match()
 			{
 				set_match_results(tab_player_names[i], tab_player_names[i - 1]);
 			}
+			system("pause");
 			return true;
 		}
 	}
@@ -284,16 +289,18 @@ void c_game::check_who_win_without_needed_points()
 	if (player_one_points_ == player_two_points_)
 	{
 		c_tictactoe::clear_screen();
-		c_tictactoe::show_message("REMISS!");
+		c_tictactoe::show_message("REMISS GAME!\n\n");
 		remiss_match_ = true;
+		system("pause");
 	}
 	for (auto i = 0; i < 2; i++)
 	{
 		if (tab_player_points[0] > tab_player_points[1])
 		{
 			c_tictactoe::clear_screen();
-			c_tictactoe::show_message("WINNER IS " + tab_player_names[0] + "!");
+			c_tictactoe::show_message("WINNER IS " + tab_player_names[0] + "!\n\n");
 			set_match_results(tab_player_names[0], tab_player_names[1]);
+			system("pause");
 		}
 		std::swap(tab_player_points[0], tab_player_points[1]);
 		std::swap(tab_player_names[0], tab_player_names[1]);

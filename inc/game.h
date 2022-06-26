@@ -25,7 +25,7 @@ private:
 	string name_player_one_ = "Player_1", name_player_two_ = "Player_2";
 
 	int player_one_points_ = 0, player_two_points_ = 0;
-	char player_one_character_ = 'X', player_two_character_ = 'O';
+	const char player_one_character_ = 'X', player_two_character_ = 'O';
 
 	static constexpr int x_board_size = 3;
 	static constexpr int y_board_size = 3;

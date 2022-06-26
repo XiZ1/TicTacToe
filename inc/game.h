@@ -48,7 +48,7 @@ private:
 	bool check_x(const char& player_character) const;
 	bool check_y(const char& player_character) const;
 	bool check_diagonal(const char& player_character) const;
-	static void add_point(int& player_point);
+	static void add_point(int* player_point);
 	bool check_who_win_match();
 	void check_who_win_without_needed_points();
 	void set_match_results(const string& winner, const string& loser);

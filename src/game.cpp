@@ -195,10 +195,10 @@ bool c_game::check_field_is_empty(const char field_number, const char& field_of_
 	return false;
 }
 
-bool c_game::check_win() // TODO task 2
+bool c_game::check_win()
 {
 	const char tab_character[2]{ player_one_character_, player_two_character_ };
-	int tab_point[2] = { player_one_points_, player_two_points_ };
+	int* tab_point[2] = { &player_one_points_, &player_two_points_ };
 	const string tab_name[2]{ name_player_one_, name_player_two_ };
 	for (auto i = 0; i < 2; i++)
 	{
@@ -207,8 +207,6 @@ bool c_game::check_win() // TODO task 2
 			c_tictactoe::clear_screen();
 			c_tictactoe::show_message(tab_name[i] + " WIN THIS ROUND!\n\n");
 			add_point(tab_point[i]);
-			player_one_points_ = tab_point[0];
-			player_two_points_ = tab_point[1];
 			system("pause");
 			return true;
 		}
@@ -252,9 +250,9 @@ bool c_game::check_diagonal(const char& player_character) const
 	return false;
 }
 
-void c_game::add_point(int& player_point)
+void c_game::add_point(int* player_point)
 {
-	player_point++;
+	*player_point += 1;
 }
 
 bool c_game::check_who_win_match()

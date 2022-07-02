@@ -102,7 +102,7 @@ int c_game::set_max_round()
 	while (true)
 	{
 		c_tictactoe::clear_screen();
-		c_tictactoe::show_message("Enter the maximum number of rounds.");
+		c_tictactoe::show_message("Enter the maximum number of rounds: ");
 		cin >> how_many_rounds;
 		if(how_many_rounds > 0)
 		{
@@ -117,7 +117,7 @@ int c_game::set_round_need_to_win(const int& maximum_round)
 	while (true)
 	{
 		c_tictactoe::clear_screen();
-		c_tictactoe::show_message("Enter the number of rounds needed to win.");
+		c_tictactoe::show_message("Enter the number of rounds needed to win: ");
 		cin >> how_many_rounds_need_to_win;
 		if ((how_many_rounds_need_to_win > 0) && (how_many_rounds_need_to_win < maximum_round))
 		{
@@ -128,9 +128,10 @@ int c_game::set_round_need_to_win(const int& maximum_round)
 
 void c_game::set_name()
 {
-	c_tictactoe::show_message("Enter the first player's name.");
+	c_tictactoe::clear_screen();
+	c_tictactoe::show_message("Enter the first player's name: ");
 	cin >> name_player_one_;
-	c_tictactoe::show_message("Enter the second player's name.");
+	c_tictactoe::show_message("Enter the second player's name: ");
 	cin >> name_player_two_;
 }
 
@@ -163,6 +164,7 @@ void c_game::show_board() const
 	cout << "\t     " << tab_board_[1][0] << " | " << tab_board_[1][1] << " | " << tab_board_[1][2] << '\n';
 	cout << "\t    -----------\n";
 	cout << "\t     " << tab_board_[2][0] << " | " << tab_board_[2][1] << " | " << tab_board_[2][2] << '\n';
+	c_tictactoe::show_message("\n\nEnter number of field to set player character: ");
 }
 
 void c_game::set_char(const char player_character)
@@ -205,7 +207,7 @@ bool c_game::check_win()
 		if ((check_x(tab_character[i])) || check_y(tab_character[i]) || check_diagonal(tab_character[i]))
 		{
 			c_tictactoe::clear_screen();
-			c_tictactoe::show_message(tab_name[i] + " WIN THIS ROUND!\n\n");
+			c_tictactoe::show_message("This round win " + tab_name[i] + " !\n\n");
 			add_point(tab_point[i]);
 			system("pause");
 			return true;
@@ -264,7 +266,7 @@ bool c_game::check_who_win_match()
 		if (tab_player_points[i] == round_need_to_win_)
 		{
 			c_tictactoe::clear_screen();
-			c_tictactoe::show_message("WINNER IS " + tab_player_names[i] + "!\n\n");
+			c_tictactoe::show_message("This match win " + tab_player_names[i] + " !\n\n");
 			if (i == 0)
 			{
 				set_match_results(tab_player_names[i], tab_player_names[i + 1]);
@@ -287,7 +289,7 @@ void c_game::check_who_win_without_needed_points()
 	if (player_one_points_ == player_two_points_)
 	{
 		c_tictactoe::clear_screen();
-		c_tictactoe::show_message("REMISS GAME!\n\n");
+		c_tictactoe::show_message("REMISS!\n\n");
 		remiss_match_ = true;
 		system("pause");
 	}
@@ -296,7 +298,7 @@ void c_game::check_who_win_without_needed_points()
 		if (tab_player_points[0] > tab_player_points[1])
 		{
 			c_tictactoe::clear_screen();
-			c_tictactoe::show_message("WINNER IS " + tab_player_names[0] + "!\n\n");
+			c_tictactoe::show_message("This match win " + tab_player_names[0] + " !\n\n");
 			set_match_results(tab_player_names[0], tab_player_names[1]);
 			system("pause");
 		}

@@ -8,10 +8,6 @@
 
 int main()
 {
-	/*
-	 *TODO LIST:
-	 *	 1. -NULL- poprawic GUI
-	*/
 	c_tictactoe::start_tictactoe();
 	return 0;
 }

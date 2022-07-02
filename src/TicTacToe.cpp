@@ -20,7 +20,7 @@ void c_tictactoe::start_tictactoe()
 	while(true)
 	{
 		clear_screen();
-		show_message("TicTacToe GAME!\n\n 1. Quick match.\n 2. Ranking match.\n 3. Custom match.\n 4. Leaderboard.\n 5. Exit.\n\n");
+		show_message("TicTacToe GAME!\n\n 1. Quick match.\n 2. Ranking match.\n 3. Custom match.\n 4. Leaderboard.\n 5. Exit.\n\nChoose one option: ");
 		switch (_getch())
 		{
 		case QUICK:
